@@ -1,0 +1,36 @@
+.skills-info, .socials-info{
+  input::placeholder {
+    opacity: 1 !important;
+  }
+}
+
+.skills-list, .links-list{
+  min-height: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skill-item, .link-item{
+
+  margin: 10px;
+  padding-left: 10px;
+  background-color: $primary-color;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  
+  button {
+    &:hover {
+      color: red;
+    }
+  }
+}
+.link-item{
+  padding-left: 0;
+  .icon{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+}
