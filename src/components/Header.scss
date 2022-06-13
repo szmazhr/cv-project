@@ -1,0 +1,35 @@
+@import './scss/variables';
+$header-height: 110px !default;
+$header-padding-x: 50px !default;
+$dark-color: #2c2c2c !default;
+$light-color: #f5f5f5 !default;
+$header-font-size: 1.3rem !default;
+$primary-color: #000000 !default;
+
+.header {
+  background-color: $primary-color;
+  color: $light-color;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 5rem;
+  font-weight: 700;
+  padding: 0 $header-padding-x;
+
+
+  a {
+    color: $light-color;
+    text-decoration: none;
+  }
+
+  sub {
+    font-size: 1.3rem;
+    font-weight: 300;
+    opacity: 0.9;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
