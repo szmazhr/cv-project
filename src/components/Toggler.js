@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Toggler.scss';
 
 export default class Toggler extends Component {
   constructor(props) {

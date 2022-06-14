@@ -11,6 +11,10 @@ const config = {
         include: path.join(__dirname, 'src'),
         use: ['babel-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [

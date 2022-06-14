@@ -1,14 +1,9 @@
-@import './scss/variables';
-$header-height: 110px !default;
-$header-padding-x: 50px !default;
-$dark-color: #2c2c2c !default;
-$light-color: #f5f5f5 !default;
-$header-font-size: 1.3rem !default;
-$primary-color: #000000 !default;
-
 .header {
-  background-color: $primary-color;
-  color: $light-color;
+  @include themed() {
+    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+    background: color(primary-color);
+    color: color(n-800)
+  }
   height: $header-height;
   display: flex;
   align-items: center;
@@ -19,7 +14,10 @@ $primary-color: #000000 !default;
 
 
   a {
-    color: $light-color;
+    @include themed() {
+      transition: color 0.3s ease-out;
+      color: color(n-950)
+    }
     text-decoration: none;
   }
 
@@ -30,6 +28,7 @@ $primary-color: #000000 !default;
 
     a {
       text-decoration: underline;
+      opacity: 1;
     }
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Header.scss';
 import Toggler from './Toggler';
 
 export default class Header extends Component {

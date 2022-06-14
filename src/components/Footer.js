@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Favorite, GitHub } from '@mui/icons-material';
 import { destructureGithubRepoLink } from '../modules/utils';
-import './Footer.scss';
 
 export default class Footer extends Component {
   render() {
@@ -17,8 +16,7 @@ export default class Footer extends Component {
               target="_blank"
               rel="noreferrer"
             >
-              {' '}
-              {name}
+              {` ${name}`}
             </a>
           </span>
         </div>
