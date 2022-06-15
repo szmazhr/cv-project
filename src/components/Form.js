@@ -20,6 +20,7 @@ export default class Form extends Component {
 
     this.state = {
       personal: {
+        photo: '',
         name: '',
         bio: '',
         title: '',
@@ -45,12 +46,21 @@ export default class Form extends Component {
     this.removeSkill = removeSkill.bind(this);
     this.addLink = addLink.bind(this);
     this.removeLink = removeLink.bind(this);
+    this.formRef = React.createRef();
   }
 
   componentDidMount() {
     const { data } = this.props;
     if (data) {
       this.setState(data);
+    }
+  }
+
+  componentDidUpdate() {
+    const { template, emptyTemplate } = this.props;
+    if (JSON.stringify(template) !== '{}') {
+      this.setState(template);
+      emptyTemplate();
     }
   }
 
@@ -62,9 +72,8 @@ export default class Form extends Component {
   render() {
     const { personal, experiences, educations, skills, links } = this.state;
     const { data } = this.props;
-    const EEForms = [];
-    ['Experience', 'Education'].forEach((x) => {
-      EEForms.push(
+    const EEForms = ['Experience', 'Education'].map((x) => {
+      return (
         <EEForm
           key={x}
           state={x === 'Experience' ? experiences : educations}
@@ -79,8 +88,7 @@ export default class Form extends Component {
     const saved = JSON.stringify(data) === JSON.stringify(this.state);
 
     return (
-      <div className="forms">
-        <p>{JSON.stringify(this.state)}</p>
+      <div className="forms" ref={this.formRef}>
         <PersonalInfoForm state={personal} setState={this.changeHandler} />
         {EEForms}
         <SkillsForm

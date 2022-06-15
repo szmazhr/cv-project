@@ -11,6 +11,7 @@ export default class TextArea extends Component {
           onChange={(e) => updateValue(id, e.target.value)}
           placeholder={placeholder}
           name={id}
+          rows={4}
         />
         <label htmlFor={id}>{label}</label>
       </div>

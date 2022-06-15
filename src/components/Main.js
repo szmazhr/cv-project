@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import Form from './Form';
+import Preview from './Preview';
 
 export default class Main extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class Main extends Component {
 
     this.state = {
       personal: {
+        photo: '',
         name: '',
         bio: '',
         title: '',
@@ -26,18 +28,32 @@ export default class Main extends Component {
     };
   }
 
+  // componentDidUpdate() {
+  //   // temporary solution
+  //   const { template } = this.props;
+  //   if (JSON.stringify(template) !== JSON.stringify(this.state)) {
+  //     this.updateState(template);
+  //   }
+  // }
+
   updateState = (data) => {
     this.setState(data);
   };
 
   render() {
-    const { state } = this.props;
+    const { state, template, emptyTemplate, theme } = this.props;
+
     return (
       <main className="main">
         {state === 'edit' ? (
-          <Form data={this.state} saveData={this.updateState} />
+          <Form
+            data={this.state}
+            template={template}
+            saveData={this.updateState}
+            emptyTemplate={emptyTemplate}
+          />
         ) : (
-          'Main'
+          <Preview data={this.state} theme={theme} />
         )}
       </main>
     );

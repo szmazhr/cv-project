@@ -1,60 +1,17 @@
 import {
-  LinkedIn,
-  GitHub,
-  Twitter,
-  Facebook,
-  Instagram,
-  YouTube,
-  Link as LinkIcon,
-} from '@mui/icons-material';
-// import LinkIcon from '@mui/icons-material/Link';
-import React from 'react';
-
-const template = {
-  experiences: {
-    position: '',
-    company: '',
-    from: '',
-    to: '',
-    description: '',
-  },
-  educations: {
-    degree: '',
-    collage: '',
-    from: '',
-    to: '',
-  },
-};
-
-const urlIcons = [
-  {
-    url: 'linkedin.com',
-    icon: <LinkedIn />,
-  },
-  {
-    url: 'github.com',
-    icon: <GitHub />,
-  },
-  {
-    url: 'facebook.com',
-    icon: <Facebook />,
-  },
-  {
-    url: 'twitter.com',
-    icon: <Twitter />,
-  },
-  {
-    url: 'instagram.com',
-    icon: <Instagram />,
-  },
-  {
-    url: 'youtube.com',
-    icon: <YouTube />,
-  },
-];
-
-const removePattern = /^(http[s]?:\/\/(www.)?|www.?)/;
+  removePattern,
+  urlIcons,
+  template,
+  linkIcon,
+} from '../data/templateAndDummy';
 // eslint-disable-next-line no-unused-vars
+
+function load(type) {
+  const data = template.resume[type];
+  if (data) {
+    this.setState({ template: data });
+  }
+}
 
 function eeUpdateHandler(section, id, prop, value) {
   this.setState((prevState) => {
@@ -138,7 +95,7 @@ function getIcon(url) {
   const newUrl = url.trim().replace(removePattern, '');
   const main = newUrl.split('/')[0];
   const icon = urlIcons.find((item) => item.url.toLowerCase() === main);
-  const iconElement = icon ? icon.icon : <LinkIcon />;
+  const iconElement = icon ? icon.icon : linkIcon;
   return { iconElement, url: newUrl };
 }
 
@@ -152,4 +109,5 @@ export {
   addLink,
   removeLink,
   getIcon,
+  load,
 };

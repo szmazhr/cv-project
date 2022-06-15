@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import photo from '../../assets/shahzar.jpg';
+import photoPlaceHolder from '../../assets/user-placeholder.png';
 import InputField from './InputField';
 import TextArea from './TextArea';
 
@@ -22,9 +22,21 @@ export default class PersonalInfoForm extends Component {
     setState('personal', prop, value);
   };
 
+  updatePhoto = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (_e) => {
+        this.updateValue('photo', _e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   render() {
     const { state } = this.props;
     const {
+      photo,
       name,
       bio,
       title,
@@ -36,12 +48,28 @@ export default class PersonalInfoForm extends Component {
       zipPin,
       country,
     } = state;
+    const label = (
+      <img
+        src={photo || photoPlaceHolder}
+        alt="Profile"
+        width={300}
+        height={400}
+      />
+    );
     return (
       <section className="personal-info">
         <div className="section-header">
           <h1>Personal Information</h1>
         </div>
-        <img src={photo} alt="Profile" width={300} height={400} />
+        <div className="file-upload">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.updatePhoto}
+            id="photo"
+          />
+          <label htmlFor="photo">{label}</label>
+        </div>
         <InputField
           id="name"
           label="Name"

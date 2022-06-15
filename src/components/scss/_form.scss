@@ -107,7 +107,7 @@
     }
 
     img {
-      margin: 20px;
+      object-fit: cover;
     }
 
     .input-field {
@@ -204,7 +204,7 @@
     bottom: 10px;
     transform: translateY(150%);
     transition: transform 0.3s ease-out 1s;
-    
+
     button {
       display: block;
       background-color: $primary-color;
@@ -213,9 +213,50 @@
       font-size: 1.2rem;
       font-weight: 700;
     }
+
     &.show {
       transition: transform 0.3s ease-out;
       transform: translateY(0);
+    }
+  }
+}
+
+.file-upload {
+  input {
+    display: none;
+  }
+
+  label {
+    margin: 20px;
+    pointer-events: all;
+    display: flex;
+    position: relative;
+    padding: 5px;
+    border: 1px solid hsl(0, 0%, 10%);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &::after{
+      content: 'Change Image';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: hsl(0, 0%, 100%);
+      background-color: rgba(0, 0, 0, 0.767);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
     }
   }
 }
