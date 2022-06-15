@@ -1,7 +1,13 @@
-#root{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import './components/scss/variables';
+@import './components/scss/theme';
+@import './components/scss/initials';
+@import './components/scss/toggler';
+@import './components/scss/header';
+@import './components/scss/app-body';
+@import './components/scss/sidebar';
+@import './components/scss/main';
+@import './components/scss/footer';
+@import './components/scss/form';
+@import './components/scss/skills';
+@import './components/scss/themes/brown_minimal';

@@ -1,0 +1,70 @@
+$primary-color: hsl(217, 96%, 53%) !default;
+$bg-dark: hsl(0, 0%, 10%) !default;
+$secondary: hsl(208, 7%, 46%) !default;
+$success: hsl(141, 40%, 38%) !default;
+$danger: hsl(358, 69%, 56%) !default;
+$warning: hsl(41, 100%, 60%) !default;
+$info: hsl(193, 86%, 59%) !default;
+$dark: hsl(210, 11%, 50%) !default;
+$light: hsl(240, 20%, 50%) !default;
+$gray: hsl(0, 0%, 50%) !default;
+
+
+
+$themes: (
+  light: (
+    primary-color: $primary-color,
+
+    n-50: lighten($gray, 45%),
+    n-100: lighten($gray, 40%),
+    n-200: lighten($gray, 30%),
+    n-300: lighten($gray, 20%),
+    n-400: lighten($gray, 10%),
+    n-500: $gray,
+    n-600: darken($gray, 10%),
+    n-700: darken($gray, 20%),
+    n-800: darken($gray, 30%),
+    n-900: darken($gray, 40%),
+    n-950: darken($gray, 45%),
+    w: lighten($gray, 50%),
+    
+    ),
+    dark: (
+      primary-color: $bg-dark,
+      n-50: darken($gray, 10%),
+      n-100: darken($gray, 20%),
+      n-200: darken($gray, 30%),
+      n-300: darken($gray, 40%),
+      n-400: darken($gray, 45%),
+      n-500: $gray,
+      n-600: lighten($gray, 45%),
+      n-700: lighten($gray, 40%),
+      n-800: lighten($gray, 30%),
+      n-900: lighten($gray, 20%),
+      n-950: lighten($gray, 45%),
+      w: darken($gray, 10%),
+  ),
+);
+
+@mixin themed() {
+
+  @each $theme,
+  $map in $themes {
+    .#{$theme}-mode & {
+      $theme-map: () !global;
+
+      @each $key,
+      $sub-map in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function color($color) {
+  @return map-get($theme-map, $color);
+}

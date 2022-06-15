@@ -1,0 +1,262 @@
+.forms {
+  button {
+    height: 45px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  label {
+    pointer-events: none;
+  }
+
+  // width: 100%;
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 15px auto;
+
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+
+    .experience-form-inputs,
+    .education-form-inputs {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      margin: 10px;
+      align-items: center;
+      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      transition: box-shadow 0.3s ease-out;
+
+      >.input-field {
+        margin: 15px;
+      }
+
+
+      &:focus-within {
+        box-shadow: 0 0 1px 1px rgba($primary-color, 0.2), 0 0 2px 2px rgba($primary-color, 0.5);
+      }
+
+      button {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        z-index: 1;
+        border-end-start-radius: 50%;
+
+        &:hover {
+          background-color: red;
+          color: white;
+        }
+      }
+    }
+
+    &.personal-info {
+      >.input-field {
+        margin: 15px;
+      }
+    }
+
+    .section-header {
+      border-bottom: 1px solid hsl(0, 0%, 10%);
+      color: hsl(0, 0%, 10%);
+      width: 100%;
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h1 {
+        margin: 20px;
+      }
+
+      button {
+        height: 45px;
+        width: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.3s ease-out;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    .input-field {
+      width: 100%;
+      position: relative;
+
+      textarea {
+        resize: vertical;
+
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 10px;
+        border: none;
+        outline: none;
+
+        &:focus,
+        &:not(:placeholder-shown) {
+          &::placeholder {
+            opacity: 1;
+          }
+
+          +label {
+            transform: translateY(-20px);
+            font-size: 0.8rem;
+          }
+        }
+
+        &::placeholder {
+          opacity: 0;
+          transition: opacity 0.3s ease-out 0.2s;
+        }
+      }
+
+      label {
+        transition: 0.3s;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        opacity: 0.7;
+      }
+
+      &::after,
+      &::before {
+        content: '';
+        background-color: rgb(214, 214, 214);
+        position: absolute;
+        height: 5px;
+        width: 100%;
+        bottom: -5px;
+        left: 0;
+      }
+
+      &::after {
+        background-color: $primary-color;
+        width: 0;
+        transition: width 0.3s ease-out;
+      }
+
+      &:focus-within {
+
+        label {
+          opacity: 1;
+          color: $primary-color;
+        }
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+
+    .input-group {
+      display: flex;
+      width: 100%;
+      gap: 30px;
+
+      .input-field {
+        margin: 15px auto;
+      }
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    bottom: 10px;
+    transform: translateY(150%);
+    transition: transform 0.3s ease-out 1s;
+
+    button {
+      display: block;
+      background-color: $primary-color;
+      width: initial;
+      padding: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    &.show {
+      transition: transform 0.3s ease-out;
+      transform: translateY(0);
+    }
+  }
+}
+
+.file-upload {
+  input {
+    display: none;
+  }
+
+  label {
+    margin: 20px;
+    pointer-events: all;
+    display: flex;
+    position: relative;
+    padding: 5px;
+    border: 1px solid hsl(0, 0%, 10%);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &::after{
+      content: 'Change Image';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: hsl(0, 0%, 100%);
+      background-color: rgba(0, 0, 0, 0.767);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
