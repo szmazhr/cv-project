@@ -1,113 +1,111 @@
-import React, { Component } from 'react';
-import {
-  eeUpdateHandler,
-  changeHandler,
-  addNew,
-  remove,
-  addSkill,
-  removeSkill,
-  addLink,
-  removeLink,
-} from '../modules/formFunc';
+import React, { useEffect, useRef, useState } from 'react';
 import EEForm from './form-components/EEForm';
 import PersonalInfoForm from './form-components/PersonalInfoForm';
 import SkillsForm from './form-components/SkillsForm';
 import LinksForm from './form-components/LinksForm';
+import { template as defaultValue } from '../data/templateAndDummy';
 
-export default class Form extends Component {
-  constructor(props) {
-    super(props);
+function Form({ data, saveData, template }) {
+  const isInitialMount = useRef(true);
+  const [state, setState] = useState(data);
+  const { personal, experiences, educations, skills, links } = state;
+  const saved = JSON.stringify(data) === JSON.stringify(state);
 
-    this.state = {
-      personal: {
-        photo: '',
-        name: '',
-        bio: '',
-        title: '',
-        phone: '',
-        email: '',
-        address: '',
-        city: '',
-        region: '',
-        zipPin: '',
-        country: '',
-      },
-      experiences: [],
-      educations: [],
-      skills: [],
-      links: [],
-    };
-
-    this.eeUpdateHandler = eeUpdateHandler.bind(this);
-    this.changeHandler = changeHandler.bind(this);
-    this.addNew = addNew.bind(this);
-    this.remove = remove.bind(this);
-    this.addSkill = addSkill.bind(this);
-    this.removeSkill = removeSkill.bind(this);
-    this.addLink = addLink.bind(this);
-    this.removeLink = removeLink.bind(this);
-  }
-
-  componentDidMount() {
-    const { data } = this.props;
-    if (data) {
-      this.setState(data);
-    }
-  }
-
-  componentDidUpdate() {
-    const { template, emptyTemplate } = this.props;
-    if (JSON.stringify(template) !== '{}') {
-      this.setState(template);
-      emptyTemplate();
-    }
-  }
-
-  saveData = () => {
-    const { saveData } = this.props;
-    saveData(this.state);
+  // Input Handler
+  const changeHandler = (section, prop, value) => {
+    setState({ ...state, [section]: { ...state[section], [prop]: value } });
   };
 
-  render() {
-    const { personal, experiences, educations, skills, links } = this.state;
-    const { data } = this.props;
-    const EEForms = ['Experience', 'Education'].map((x) => {
-      return (
-        <EEForm
-          key={x}
-          state={x === 'Experience' ? experiences : educations}
-          setState={this.eeUpdateHandler}
-          addNew={this.addNew}
-          remove={this.remove}
-          sectionName={x}
-        />
-      );
+  // Add Skills or Links
+  const addSkillOrLink = (itemName, value) => {
+    const item = itemName.toLowerCase();
+    setState({ ...state, [item]: [...state[item], value] });
+  };
+
+  // Remove Skills or Links
+  const removeSkillOrLink = (itemName, value) => {
+    const item = itemName.toLowerCase();
+    setState({ ...state, [item]: state[item].filter((x) => x !== value) });
+  };
+
+  // Add Education or Experience Form
+  const addNewEEForm = (section) => {
+    const id = new Date().getTime();
+    const items = state[section];
+    const isExist = items.find((item) => item.id === id);
+
+    if (isExist) {
+      addNewEEForm(section);
+      return;
+    }
+    const newItem = { id, ...defaultValue[section] };
+    setState({ ...state, [section]: [...state[section], newItem] });
+  };
+
+  // Remove Education or Experience Form
+  const removeEEForm = (section, id) => {
+    const items = state[section];
+    const newItems = items.filter((item) => item.id !== id);
+    setState({ ...state, [section]: newItems });
+  };
+
+  // Education or Experience Form Update Handler
+  const eeUpdateHandler = (section, id, prop, value) => {
+    const items = state[section];
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        return { ...item, [prop]: value };
+      }
+      return item;
     });
+    setState({ ...state, [section]: newItems });
+  };
 
-    const saved = JSON.stringify(data) === JSON.stringify(this.state);
+  // Loading dummy data or resetting form
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false; // skip the first render
+    } else {
+      setState(defaultValue.resume[template]);
+    }
+  }, [template]);
 
+  const EEForms = ['Experience', 'Education'].map((x) => {
     return (
-      <div className="forms">
-        <PersonalInfoForm state={personal} setState={this.changeHandler} />
-        {EEForms}
-        <SkillsForm
-          sectionName="Skills"
-          skills={skills}
-          addSkill={this.addSkill}
-          removeSkill={this.removeSkill}
-        />
-        <LinksForm
-          sectionName="Socials"
-          links={links}
-          addLink={this.addLink}
-          removeLink={this.removeLink}
-        />
-        <div className={`form-buttons ${saved ? '' : 'show'}`}>
-          <button type="button" onClick={this.saveData}>
-            {saved ? 'Saved' : 'Save Changes'}
-          </button>
-        </div>
-      </div>
+      <EEForm
+        key={x}
+        state={x === 'Experience' ? experiences : educations}
+        setState={eeUpdateHandler}
+        addNew={addNewEEForm}
+        remove={removeEEForm}
+        sectionName={x}
+      />
     );
-  }
+  });
+
+  return (
+    <div className="forms">
+      <PersonalInfoForm personalInfo={personal} setState={changeHandler} />
+      {EEForms}
+      <SkillsForm
+        sectionName="Skills"
+        skills={skills}
+        addSkill={addSkillOrLink}
+        removeSkill={removeSkillOrLink}
+      />
+      <LinksForm
+        sectionName="Socials"
+        links={links}
+        addLink={addSkillOrLink}
+        removeLink={removeSkillOrLink}
+      />
+      <div className={`form-buttons ${saved ? '' : 'show'}`}>
+        <button type="button" onClick={() => saveData(state)}>
+          {saved ? 'Saved' : 'Save Changes'}
+        </button>
+      </div>
+    </div>
+  );
 }
+
+export default Form;

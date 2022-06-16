@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Button extends Component {
-  render() {
-    const { id, label, onClick, icon, className } = this.props;
-    return (
-      <button
-        id={id}
-        type="button"
-        onClick={onClick}
-        className={`sidebar-btn${className && ` ${className}`}`}
-      >
-        {icon}
-        {label}
-      </button>
-    );
-  }
+function Button({ id, label, onClick, icon, className }) {
+  return (
+    <button
+      id={id}
+      type="button"
+      onClick={onClick}
+      className={`sidebar-btn${className && ` ${className}`}`}
+    >
+      {icon}
+      {label}
+    </button>
+  );
 }
+
+export default Button;

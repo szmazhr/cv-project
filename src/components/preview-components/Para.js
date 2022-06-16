@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Heading from './Heading';
 
-export default class Para extends Component {
-  render() {
-    const { text } = this.props;
-    return (
-      <div className="bio">
-        <Heading text="Personal Info" />
-        <p>{text}</p>
-      </div>
-    );
-  }
+function Para({ text }) {
+  return (
+    <div className="bio">
+      <Heading text="Personal Info" />
+      <p>{text}</p>
+    </div>
+  );
 }
+export default Para;
