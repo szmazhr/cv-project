@@ -1,9 +1,4 @@
-import {
-  removePattern,
-  urlIcons,
-  template,
-  linkIcon,
-} from '../data/templateAndDummy';
+import { urlIcons, template, linkIcon } from '../data/templateAndDummy';
 // eslint-disable-next-line no-unused-vars
 
 function load(type) {
@@ -92,7 +87,10 @@ function removeLink(link) {
 }
 
 function getIcon(url) {
-  const newUrl = url.trim().replace(removePattern, '');
+  const newUrl = url
+    .trim()
+    .replace(/^((http[s]?:\/\/)?(w{3}.)?)/, '')
+    .replace(/\/$/, '');
   const main = newUrl.split('/')[0];
   const icon = urlIcons.find((item) => item.url.toLowerCase() === main);
   const iconElement = icon ? icon.icon : linkIcon;
