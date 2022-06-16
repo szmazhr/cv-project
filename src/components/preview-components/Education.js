@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DescriptiveList from './DescriptiveList';
 import Heading from './Heading';
 
-export default class Education extends Component {
-  render() {
-    const { listItems } = this.props;
-    const educationListEl = listItems.map((education) => {
+function Education({ listItems }) {
+  const educationListEl = listItems.map((education) => {
+    if (education.degree || education.collage) {
       return (
         <DescriptiveList
           key={education.id}
@@ -14,13 +13,16 @@ export default class Education extends Component {
           period={`${education.from || '-'} - ${education.to || '-'}`}
         />
       );
-    });
+    }
+    return null;
+  });
 
-    return (
-      <div className="education">
-        <Heading text="Education" />
-        <div className="education-list">{educationListEl}</div>
-      </div>
-    );
-  }
+  return (
+    <div className="education">
+      <Heading text="Education" />
+      <div className="education-list">{educationListEl}</div>
+    </div>
+  );
 }
+
+export default Education;

@@ -1,26 +1,27 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class TabsSelector extends Component {
-  render() {
-    const { state, setState } = this.props;
+function TabsSelector({ activeTab, setActiveTab }) {
+  const btn = (tabName) => {
+    const id = tabName.toLowerCase().replace(/\s+/g, '-');
     return (
-      <div className="toggle-options">
-        <div
-          className={`option-toggle ${state === 'edit' ? 'active' : ''}`}
-          onClick={() => setState('edit')}
-        >
-          <span>Edit</span>
-        </div>
-        <span className="or">OR</span>
-        <div
-          className={`option-toggle ${state === 'preview' ? 'active' : ''}`}
-          onClick={() => setState('preview')}
-        >
-          <span>Preview</span>
-        </div>
+      <div
+        className={`option-toggle ${activeTab === id ? 'active' : ''}`}
+        onClick={() => setActiveTab(id)}
+      >
+        <span>{tabName}</span>
       </div>
     );
-  }
+  };
+
+  return (
+    <div className="toggle-options">
+      {btn('Edit')}
+      <span className="or">OR</span>
+      {btn('Preview')}
+    </div>
+  );
 }
+
+export default TabsSelector;

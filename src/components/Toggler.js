@@ -1,41 +1,23 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default class Toggler extends Component {
-  constructor(props) {
-    super(props);
+function Toggler({ id, icons, toggle }) {
+  const [isDark, setIsDark] = useState(false);
 
-    this.state = {
-      Active: false,
-    };
-  }
+  useEffect(() => {
+    toggle(isDark);
+  }, [isDark]);
 
-  componentDidMount() {
-    const { toggle } = this.props;
-    const { Active } = this.state;
-    toggle(Active);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { Active } = this.state;
-    const { toggle } = this.props;
-    if (prevState.Active !== Active) {
-      toggle(Active);
-    }
-  }
-
-  render() {
-    const { Active } = this.state;
-    const { id, icons } = this.props;
-    return (
-      <div className={`toggle ${id}`}>
-        <input
-          type="checkbox"
-          id={id}
-          checked={Active}
-          onChange={(e) => this.setState({ Active: e.target.checked })}
-        />
-        <label htmlFor={id}>{icons}</label>
-      </div>
-    );
-  }
+  return (
+    <div className={`toggle ${id}`}>
+      <input
+        type="checkbox"
+        id={id}
+        checked={isDark}
+        onChange={(e) => setIsDark(e.target.checked)}
+      />
+      <label htmlFor={id}>{icons}</label>
+    </div>
+  );
 }
+
+export default Toggler;

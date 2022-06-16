@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DescriptiveList from './DescriptiveList';
 import Heading from './Heading';
 
-export default class Experience extends Component {
-  render() {
-    const { listItems } = this.props;
-    const experienceListEl = listItems.map((experience) => {
+function Experience({ listItems }) {
+  const experienceListEl = listItems.map((experience) => {
+    if (experience.company || experience.position) {
       return (
         <DescriptiveList
           key={experience.id}
@@ -17,13 +16,16 @@ export default class Experience extends Component {
           description={experience.description}
         />
       );
-    });
+    }
+    return null;
+  });
 
-    return (
-      <div className="experience">
-        <Heading text="Experience" />
-        <div className="experience-list">{experienceListEl}</div>
-      </div>
-    );
-  }
+  return (
+    <div className="experience">
+      <Heading text="Experience" />
+      <div className="experience-list">{experienceListEl}</div>
+    </div>
+  );
 }
+
+export default Experience;

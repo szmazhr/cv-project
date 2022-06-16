@@ -1,62 +1,30 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 import Main from './Main';
 import Sidebar from './Sidebar';
-import { load } from '../modules/formFunc';
 
-export default class Body extends Component {
-  constructor(props) {
-    super(props);
+function Body() {
+  const [activeTab, setActiveTab] = useState('edit');
+  const [theme, setTheme] = useState('');
+  const [template, setTemplate] = useState('empty');
+  const previewRef = useRef(null);
 
-    this.state = {
-      activeTab: 'edit',
-      theme: 'brown-minimal',
-      template: {},
-    };
-    this.load = load.bind(this);
-    this.componentRef = React.createRef();
-  }
-
-  // componentDidUpdate() {
-  //   // temporary solution to update the template
-  //   const { template } = this.state;
-  //   if (JSON.stringify(template) === '{}') {
-  //     this.load('filled');
-  //   }
-  // }
-
-  emptyTemplate = () => {
-    this.setState({ template: {} });
-  };
-
-  changeTab = (tab) => {
-    this.setState({ activeTab: tab });
-  };
-
-  changeTheme = (theme) => {
-    this.setState({ theme });
-  };
-
-  render() {
-    const { activeTab, template, theme } = this.state;
-    return (
-      <div className="app-body">
-        <Main
-          state={activeTab}
-          template={template}
-          emptyTemplate={this.emptyTemplate}
-          setState={this.changeTab}
-          theme={theme}
-          previewRef={this.componentRef}
-        />
-        <Sidebar
-          state={activeTab}
-          loadTemplate={this.load}
-          setState={this.changeTab}
-          theme={theme}
-          changeTheme={this.changeTheme}
-          previewRef={this.componentRef}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="app-body">
+      <Main
+        activeTab={activeTab}
+        template={template}
+        theme={theme}
+        previewRef={previewRef}
+      />
+      <Sidebar
+        activeTab={activeTab}
+        setTemplate={setTemplate}
+        setActiveTab={setActiveTab}
+        theme={theme}
+        changeTheme={setTheme}
+        previewRef={previewRef}
+      />
+    </div>
+  );
 }
+export default Body;

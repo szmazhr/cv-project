@@ -1,3 +1,5 @@
+import { urlIcons, linkIcon } from '../data/templateAndDummy';
+
 /* eslint-disable no-console */
 function destructureGithubRepoLink(repoLink) {
   const [, owner, repo] = repoLink.match(
@@ -6,39 +8,15 @@ function destructureGithubRepoLink(repoLink) {
   return { owner, repo };
 }
 
-async function getUserInfo(profileLink) {
-  const [, user] = profileLink.match(
-    /^(?:https?:\/\/)?(?:www\.)?github\.com\/(.*)$/
-  );
-  const res = await fetch(`https://api.github.com/users/${user}`);
-
-  if (res.ok) {
-    return res.json();
-  }
-  if (res.status === 403) {
-    console.error('Github API rate limit exceeded');
-  }
-  if (res.status === 404) {
-    console.error('User not found');
-  }
-  return null;
+function getIcon(url) {
+  const newUrl = url
+    .trim()
+    .replace(/^((http[s]?:\/\/)?(w{3}.)?)/, '')
+    .replace(/\/$/, '');
+  const main = newUrl.split('/')[0];
+  const icon = urlIcons.find((item) => item.url.toLowerCase() === main);
+  const iconElement = icon ? icon.icon : linkIcon;
+  return { iconElement, url: newUrl };
 }
 
-async function getRepoInfo(repoLink) {
-  const { owner, repo } = destructureGithubRepoLink(repoLink);
-
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-
-  if (res.ok) {
-    return res.json();
-  }
-  if (res.status === 404) {
-    console.error('No repo found, please check the link');
-  }
-  if (res.status === 403) {
-    console.error('Limit Exceeded, please try again later');
-  }
-  return null;
-}
-
-export { getRepoInfo, getUserInfo, destructureGithubRepoLink };
+export { destructureGithubRepoLink, getIcon };
