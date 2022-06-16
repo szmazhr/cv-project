@@ -5,6 +5,9 @@ import TextArea from './TextArea';
 
 export default class ExperienceInputForm extends Component {
   updateValue = (prop, value) => {
+    if (prop === 'from' || prop === 'to') {
+      if (value.match(/\D|\d{5}/)) return;
+    }
     const { state, setState, section } = this.props;
     const { id } = state;
     setState(`${section}s`, id, prop, value);
@@ -25,16 +28,16 @@ export default class ExperienceInputForm extends Component {
             label="From"
             value={from}
             updateValue={this.updateValue}
-            placeholder="When did you joined?"
-            type="date"
+            placeholder="When did you joined? (Year)"
+            type="text"
           />
           <InputField
             id="to"
             label="To"
             value={to}
             updateValue={this.updateValue}
-            placeholder="When did you left?"
-            type="date"
+            placeholder="When did you left? (Year)"
+            type="text"
           />
         </div>
         <InputField
