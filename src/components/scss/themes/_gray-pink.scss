@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;600&display=swap');
+
+.gray-pink {
+  $dark: #2C2D2C;
+  $light-dark: #504848;
+  $light: #FBC5AD;
+  $border-color: #9A725F;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
+
+  &.preview {
+    display: grid;
+    max-width: 1080px;
+    width: 100%;
+    margin: auto;
+    background-color: $light-dark;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 310px;
+    grid-template-areas:
+      'header header'
+      'contact personal'
+      'skills experience'
+      'other-links education';
+
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: $dark;
+    }
+  }
+
+  h1,
+  h2 {
+    font-family: 'Raleway', sans-serif;
+  }
+
+  h3,
+  h4,
+  h5,
+  p {
+    font-family: 'Lato', sans-serif;
+    text-transform: capitalize;
+  }
+
+  h1,
+  h2 {
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 1em;
+    padding: 0;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    color: white;
+  }
+
+  .name-title {
+    background-color: $dark;
+    position: absolute;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 60px;
+
+    .user-name {
+      color: $light;
+      letter-spacing: 5px;
+    }
+
+    .user-title {
+      font-weight: 400;
+      font-family: 'Lato', sans-serif;
+      color: white;
+      letter-spacing: 15px;
+    }
+
+  }
+
+  .user-photo {
+    display: none;
+  }
+
+  .bio {
+    grid-area: personal;
+
+  }
+
+  .contacts {
+    grid-area: contact;
+  }
+
+  .experience {
+    grid-area: experience;
+  }
+
+  .education {
+    grid-area: education;
+  }
+
+  .bio,
+  .education,
+  .experience {
+    padding-left: 50px;
+
+    .section-heading {
+      background-color: $dark;
+      padding: 5px 15px;
+    }
+
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 0;
+      width: 40px;
+      height: 1.5rem;
+      background-color: $border-color;
+      clip-path: polygon(0 46%, 50% 46%, 50% 0, 100% 50%, 50% 100%, 50% 54%, 0 54%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      left: 0;
+      top: 39px;
+      bottom: 20px;
+      background-color: $border-color;
+    }
+  }
+
+  .education,
+  .experience {
+
+    .desc-list-item {
+      margin-bottom: 30px;
+      margin-top: 30px;
+
+
+      h3,
+      h4,
+      p {
+        margin: 3px 0;
+      }
+
+      .period {
+        display: inline-block;
+
+        &::before {
+          content: '(';
+        }
+
+        &::after {
+          content: ')';
+        }
+      }
+
+      .org {
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-right: 5px
+      }
+
+      .position {
+        font-size: 1.6rem;
+
+      }
+
+      .description {
+
+        clear: both;
+      }
+    }
+  }
+
+  .skills {
+    grid-area: skills;
+
+    ul {
+      line-height: 2em;
+    }
+  }
+
+  .other-links {
+    grid-area: other-links;
+
+  }
+
+  .other-links,
+  .contacts {
+    ul {
+      list-style: none;
+      padding-left: 10px;
+
+      li {
+        display: flex;
+        gap: 7px;
+        padding: 5px;
+      }
+    }
+  }
+
+  .contacts,
+  .other-links,
+  .skills {
+    padding-right: 20px;
+
+    .section-heading {
+      border-bottom: 2px solid $border-color;
+    }
+  }
+
+  .contacts,
+  .other-links,
+  .skills,
+  h3,
+  h4 {
+    color: white;
+
+    svg {
+      color: $light
+    }
+  }
+
+  .section-heading {
+    color: $light;
+  }
+}

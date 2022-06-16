@@ -18,6 +18,9 @@ export default class PersonalInfoForm extends Component {
   };
 
   updateValue = (prop, value) => {
+    if (prop === 'email') {
+      if (value.match(/\s/g)) return;
+    }
     const { setState } = this.props;
     setState('personal', prop, value);
   };

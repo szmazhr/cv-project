@@ -32,7 +32,7 @@ export default class App extends Component {
         <Body />
         <Footer
           name="Shahzar Mazhar"
-          repoLink="https://github.com/szmazhr/cv-creator"
+          repoLink="https://github.com/szmazhr/cv-project"
         />
       </div>
     );

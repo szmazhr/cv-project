@@ -55,7 +55,9 @@ export default class LinksForm extends Component {
           <input
             id={id}
             value={linkInput}
-            onChange={(e) => this.setState({ [id]: e.target.value })}
+            onChange={(e) =>
+              this.setState({ [id]: e.target.value.replace(/\s/, '') })
+            }
             placeholder="Add a link (then press enter to add)"
             name={id}
             onKeyDown={this.addLink}

@@ -131,8 +131,6 @@ const urlIcons = [
   },
 ];
 
-const removePattern = /^(http[s]?:\/\/(www.)?|www.?)/;
-
 const linkIcon = <LinkIcon />;
 
-export { removePattern, urlIcons, template, linkIcon };
+export { urlIcons, template, linkIcon };

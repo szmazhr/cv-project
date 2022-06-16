@@ -15,32 +15,36 @@ export default class Preview extends Component {
     const { photo, name, bio, title, phone, email, address, city, country } =
       personal;
 
-    const linkListEl = links.map((link) => {
+    const linkEl = links.map((link) => {
       const { iconElement, url } = getIcon(link);
       return [iconElement, url];
     });
+    const isExperienceEmpty = experiences.find((e) => e.company || e.position);
+    const isEducationEmpty = educations.find((e) => e.collage || e.degree);
     return (
       <section className={`preview ${theme}`}>
         <Header name={name} title={title} />
         <Photo name={name} photo={photo} />
-        <Para text={bio} />
-        <List
-          heading="Contacts"
-          listItems={[
-            [<Phone fontSize="small" />, phone],
-            [<Email />, email],
-            [
-              <LocationCity />,
-              `${address}${address && city ? ', ' : ''}${city}${
-                country && (address || city) ? ', ' : ''
-              }${country}`,
-            ],
-          ]}
-        />
-        <Experience listItems={experiences} />
-        <Education listItems={educations} />
-        <List heading="Skills" listItems={skills} />
-        <List heading="Other Links" listItems={linkListEl} />
+        {bio && <Para text={bio} />}
+        {(phone || email || address || city || country) && (
+          <List
+            heading="Contacts"
+            listItems={[
+              [<Phone fontSize="small" />, phone],
+              [<Email />, email],
+              [
+                <LocationCity />,
+                `${address}${address && city ? ', ' : ''}${city}${
+                  country && (address || city) ? ', ' : ''
+                }${country}`,
+              ],
+            ]}
+          />
+        )}
+        {isExperienceEmpty && <Experience listItems={experiences} />}
+        {isEducationEmpty && <Education listItems={educations} />}
+        {skills.length > 0 && <List heading="Skills" listItems={skills} />}
+        {linkEl.length > 0 && <List heading="Other Links" listItems={linkEl} />}
       </section>
     );
   }
