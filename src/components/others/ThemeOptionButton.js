@@ -17,7 +17,7 @@ export default class ThemeOptionButton extends Component {
 
   render() {
     const { theme: activeTheme } = this.props;
-    const themesBtn = ['Brown Minimal', 'Other'].map((theme) => {
+    const themesBtn = ['Brown Minimal', 'Gray Pink'].map((theme) => {
       const id = theme.toLowerCase().replace(/\s+/g, '-');
       return (
         <Button
