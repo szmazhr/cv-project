@@ -21,6 +21,7 @@ export default class Preview extends Component {
     });
     const isExperienceEmpty = experiences.find((e) => e.company || e.position);
     const isEducationEmpty = educations.find((e) => e.collage || e.degree);
+
     return (
       <section className={`preview ${theme}`}>
         <Header name={name} title={title} />

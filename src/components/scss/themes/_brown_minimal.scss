@@ -15,13 +15,14 @@
     position: relative;
     overflow: hidden;
     grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: 370px;
+    grid-template-rows: 370px, repeat(5, 1fr);
     grid-template-areas:
       'header header'
       'personal personal'
       'experience contact'
       'experience skills'
       'education other-links';
+      padding-top: 430px;
 
 
     &::after {

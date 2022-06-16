@@ -46,7 +46,6 @@ export default class Form extends Component {
     this.removeSkill = removeSkill.bind(this);
     this.addLink = addLink.bind(this);
     this.removeLink = removeLink.bind(this);
-    this.formRef = React.createRef();
   }
 
   componentDidMount() {
@@ -88,7 +87,7 @@ export default class Form extends Component {
     const saved = JSON.stringify(data) === JSON.stringify(this.state);
 
     return (
-      <div className="forms" ref={this.formRef}>
+      <div className="forms">
         <PersonalInfoForm state={personal} setState={this.changeHandler} />
         {EEForms}
         <SkillsForm

@@ -13,6 +13,7 @@ export default class Body extends Component {
       template: {},
     };
     this.load = load.bind(this);
+    this.componentRef = React.createRef();
   }
 
   // componentDidUpdate() {
@@ -45,6 +46,7 @@ export default class Body extends Component {
           emptyTemplate={this.emptyTemplate}
           setState={this.changeTab}
           theme={theme}
+          previewRef={this.componentRef}
         />
         <Sidebar
           state={activeTab}
@@ -52,6 +54,7 @@ export default class Body extends Component {
           setState={this.changeTab}
           theme={theme}
           changeTheme={this.changeTheme}
+          previewRef={this.componentRef}
         />
       </div>
     );

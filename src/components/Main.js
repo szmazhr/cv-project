@@ -28,20 +28,12 @@ export default class Main extends Component {
     };
   }
 
-  // componentDidUpdate() {
-  //   // temporary solution
-  //   const { template } = this.props;
-  //   if (JSON.stringify(template) !== JSON.stringify(this.state)) {
-  //     this.updateState(template);
-  //   }
-  // }
-
   updateState = (data) => {
     this.setState(data);
   };
 
   render() {
-    const { state, template, emptyTemplate, theme } = this.props;
+    const { state, template, emptyTemplate, theme, previewRef } = this.props;
 
     return (
       <main className="main">
@@ -53,7 +45,7 @@ export default class Main extends Component {
             emptyTemplate={emptyTemplate}
           />
         ) : (
-          <Preview data={this.state} theme={theme} />
+          <Preview data={this.state} theme={theme} ref={previewRef} />
         )}
       </main>
     );

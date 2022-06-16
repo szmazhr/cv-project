@@ -18,12 +18,13 @@
     position: relative;
     overflow: hidden;
     grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 310px;
     grid-template-areas:
       'header header'
       'contact personal'
       'skills experience'
       'other-links education';
+
+      padding-top: 370px;
 
 
     &::after {
