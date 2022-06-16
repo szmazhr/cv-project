@@ -8,7 +8,7 @@ export default class Body extends Component {
     super(props);
 
     this.state = {
-      activeTab: 'preview',
+      activeTab: 'edit',
       theme: 'brown-minimal',
       template: {},
     };
